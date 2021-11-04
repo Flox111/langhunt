@@ -1,15 +1,18 @@
-package ru.maltsev.langhunt;
+package ru.maltsev.langhunt.ui;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
-
-
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
+import ru.maltsev.langhunt.LoginAdapter;
+import ru.maltsev.langhunt.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -35,9 +38,8 @@ public class LoginActivity extends AppCompatActivity {
         adapter = new LoginAdapter(fm, getLifecycle());
         viewPager.setAdapter(adapter);
 
-
-        tabLayout.addTab(tabLayout.newTab().setText("login"));
-        tabLayout.addTab(tabLayout.newTab().setText("Signup"));
+        //new TabLayoutMediator(tabLayout, viewPager,
+        //        (tab, position) -> tab.setText("Tab " + position)).attach();
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -53,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
 
@@ -63,11 +64,5 @@ public class LoginActivity extends AppCompatActivity {
                 tabLayout.selectTab(tabLayout.getTabAt(position));
             }
         });
-
-
-
-        tabLayout.setTranslationY(300);
-
-        tabLayout.setAlpha(0);
     }
 }

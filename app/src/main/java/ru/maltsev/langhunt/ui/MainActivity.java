@@ -1,8 +1,10 @@
-package ru.maltsev.langhunt;
+package ru.maltsev.langhunt.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import ru.maltsev.langhunt.R;
 
 public class MainActivity extends AppCompatActivity {
 
