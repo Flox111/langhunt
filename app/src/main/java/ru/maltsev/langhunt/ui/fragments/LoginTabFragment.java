@@ -1,5 +1,8 @@
-package ru.maltsev.langhunt.fragments;
+package ru.maltsev.langhunt.ui.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +16,14 @@ import androidx.fragment.app.Fragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import ru.maltsev.langhunt.R;
-import ru.maltsev.langhunt.api.client.UserClient;
-import ru.maltsev.langhunt.api.model.LoginRequest;
-import ru.maltsev.langhunt.api.model.User;
-import ru.maltsev.langhunt.api.service.UserService;
+import ru.maltsev.langhunt.network.TokenManager;
+import ru.maltsev.langhunt.network.client.RetrofitBuilder;
+import ru.maltsev.langhunt.network.model.AccessToken;
+import ru.maltsev.langhunt.network.model.LoginRequest;
+import ru.maltsev.langhunt.network.model.User;
+import ru.maltsev.langhunt.network.service.ApiService;
+import ru.maltsev.langhunt.ui.MainActivity;
 
 public class LoginTabFragment extends Fragment {
 
@@ -27,9 +31,15 @@ public class LoginTabFragment extends Fragment {
     EditText password;
     Button login_btn;
 
+    ApiService service;
+    TokenManager tokenManager;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.login_tab_fragment,container,false);
+
+        service = RetrofitBuilder.createService(ApiService.class);
+        tokenManager = TokenManager.getInstance(this.getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
 
         email = root.findViewById(R.id.email);
         password = root.findViewById(R.id.password);
@@ -49,16 +59,21 @@ public class LoginTabFragment extends Fragment {
 
 
         login_btn.setOnClickListener(v -> login());
+
+        if(tokenManager.getToken().getAccessToken() != null){
+            startActivity(new Intent(getActivity(), MainActivity.class));
+            getActivity().finish();
+        }
         return root;
     }
 
     private void login(){
-        UserService userService = UserClient.getClient().create(UserService.class);
+
         LoginRequest loginRequest;
         Call<User> call;
         if (email.getText().toString() != "" && password.getText().toString() != ""){
             loginRequest = new LoginRequest(email.getText().toString(), password.getText().toString());
-            call = userService.login(loginRequest);
+            call = service.login(loginRequest);
         }
         else{
             Toast.makeText(getContext(),"empty", Toast.LENGTH_SHORT).show();
@@ -69,7 +84,10 @@ public class LoginTabFragment extends Fragment {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()){
-                    Toast.makeText(getContext(),response.body().getToken(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),response.body().getAccessToken(), Toast.LENGTH_SHORT).show();
+                    tokenManager.saveToken(new AccessToken(response.body().getAccessToken(),response.body().getRefreshToken()));
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+                    getActivity().finish();
                 }
                 else{
                     Toast.makeText(getContext(),"error", Toast.LENGTH_SHORT).show();

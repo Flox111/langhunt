@@ -1,4 +1,4 @@
-package ru.maltsev.langhunt.api.model;
+package ru.maltsev.langhunt.network.model;
 
 public class LoginRequest {
     private String username;

@@ -1,31 +1,39 @@
-package ru.maltsev.langhunt.api.model;
+package ru.maltsev.langhunt.network.model;
 
 import java.util.List;
 
 public class User {
-
-    private String token;
-
     private String type = "Bearer";
+    private String accessToken;
+    private String refreshToken;
     private Long id;
     private String username;
     private String email;
     private List<String> roles;
 
-    public User(String token, Long id, String username, String email, List<String> roles) {
-        this.token = token;
+    public User(String accessToken,String refreshToken, Long id, String username, String email, List<String> roles) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
         this.id = id;
         this.username = username;
         this.email = email;
         this.roles = roles;
     }
 
-    public String getToken() {
-        return token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
     public String getType() {

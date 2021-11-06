@@ -68,7 +68,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent=".7"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tab_layout" />
+            app:layout_constraintTop_toBottomOf="@id/tab_layout"
+            android:overScrollMode="never"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

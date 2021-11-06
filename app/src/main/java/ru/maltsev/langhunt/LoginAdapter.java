@@ -7,8 +7,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import ru.maltsev.langhunt.fragments.LoginTabFragment;
-import ru.maltsev.langhunt.fragments.SignupTabFragment;
+import ru.maltsev.langhunt.ui.fragments.LoginTabFragment;
+import ru.maltsev.langhunt.ui.fragments.SignupTabFragment;
 
 public class LoginAdapter extends FragmentStateAdapter{
     private final int totalTabs = 2;
