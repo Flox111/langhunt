@@ -9,10 +9,10 @@ import android.view.WindowManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import ru.maltsev.langhunt.DictionaryFragment;
-import ru.maltsev.langhunt.HomeFragment;
 import ru.maltsev.langhunt.R;
-import ru.maltsev.langhunt.TrainingFragment;
+import ru.maltsev.langhunt.ui.fragments.DictionaryFragment;
+import ru.maltsev.langhunt.ui.fragments.HomeFragment;
+import ru.maltsev.langhunt.ui.fragments.TrainingFragment;
 
 public class MainActivity extends AppCompatActivity {
 

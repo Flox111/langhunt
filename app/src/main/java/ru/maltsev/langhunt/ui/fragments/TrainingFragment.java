@@ -1,4 +1,4 @@
-package ru.maltsev.langhunt;
+package ru.maltsev.langhunt.ui.fragments;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import ru.maltsev.langhunt.R;
 
 /**
  * A simple {@link Fragment} subclass.

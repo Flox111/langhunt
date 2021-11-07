@@ -3,15 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/drawable/background.xml" value="0.3640625" />
         <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/drawable/button_bg.xml" value="0.3572916666666667" />
         <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/drawable/edit_text_bg.xml" value="0.3572916666666667" />
         <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/drawable/home_selector.xml" value="0.2552083333333333" />
         <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/drawable/login_background.xml" value="0.33" />
+        <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/drawable/rounded_angles.xml" value="0.2552083333333333" />
         <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/drawable/view_bg.xml" value="0.3572916666666667" />
         <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/layout/activity_set.xml" value="0.34791666666666665" />
         <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/layout/activity_sign_in.xml" value="0.26721014492753625" />
-        <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/layout/fragment_dictionary.xml" value="0.27943840579710144" />
+        <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/layout/cardview_item_set.xml" value="0.34791666666666665" />
+        <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/layout/fragment_dictionary.xml" value="0.264733395696913" />
         <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/layout/fragment_home.xml" value="0.27943840579710144" />
         <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/layout/fragment_training.xml" value="0.27943840579710144" />
         <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/layout/login_tab_fragment.xml" value="0.24954710144927536" />
