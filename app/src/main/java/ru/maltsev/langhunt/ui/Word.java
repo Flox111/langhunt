@@ -7,10 +7,18 @@ public class Word {
 
     private String translated;
 
+    private Long setId;
+
     public Word(Long wordId, String nativeTranslated, String translated) {
         this.wordId = wordId;
         this.nativeTranslated = nativeTranslated;
         this.translated = translated;
+    }
+
+    public Word(String nativeTranslated, String translated, Long setId) {
+        this.nativeTranslated = nativeTranslated;
+        this.translated = translated;
+        this.setId = setId;
     }
 
     public Long getWordId() {
@@ -35,5 +43,13 @@ public class Word {
 
     public void setTranslated(String translated) {
         this.translated = translated;
+    }
+
+    public Long getSetId() {
+        return setId;
+    }
+
+    public void setSetId(Long setId) {
+        this.setId = setId;
     }
 }

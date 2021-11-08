@@ -2,8 +2,14 @@ package ru.maltsev.langhunt.ui.activity;
 
 import static java.security.AccessController.getContext;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +43,7 @@ public class SetActivity extends AppCompatActivity {
     private WordApiService service;
     private TokenManager tokenManager;
     private RecyclerViewAdapterWords myAdapter;
+    Dialog mDialog;
 
     private TextView textView;
     private FloatingActionButton floatingActionButton;
@@ -55,7 +62,11 @@ public class SetActivity extends AppCompatActivity {
         words = new ArrayList<>();
 
         textView = findViewById(R.id.set_title);
+
         floatingActionButton = findViewById(R.id.button_add);
+        mDialog = new Dialog(SetActivity.this);
+
+
 
         textView.setText(getIntent().getExtras().getString("Title"));
 
@@ -63,6 +74,13 @@ public class SetActivity extends AppCompatActivity {
         myAdapter = new RecyclerViewAdapterWords(SetActivity.this, words);
         recyclerView.setLayoutManager(new GridLayoutManager(SetActivity.this,1));
         recyclerView.setAdapter(myAdapter);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopup();
+            }
+        });
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -83,12 +101,12 @@ public class SetActivity extends AppCompatActivity {
     }
 
     private void getWords(){
-        Call<Set<Word>> call = service.getWords("Bearer " + tokenManager.getToken().getAccessToken(),
+        Call<List<Word>> call = service.getWords("Bearer " + tokenManager.getToken().getAccessToken(),
                 tokenManager.getToken().getRefreshToken(),getIntent().getExtras().getLong("SetId"));
 
-        call.enqueue(new Callback<Set<Word>>() {
+        call.enqueue(new Callback<List<Word>>() {
             @Override
-            public void onResponse(Call<Set<Word>> call, Response<Set<Word>> response) {
+            public void onResponse(Call<List<Word>> call, Response<List<Word>> response) {
                 if (response.isSuccessful()){
                     for (Word word: response.body()){
                         words.add(word);
@@ -101,7 +119,50 @@ public class SetActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Set<Word>> call, Throwable t) {
+            public void onFailure(Call<List<Word>> call, Throwable t) {
+                //Toast.makeText(getContext(),"error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showPopup(){
+        mDialog.setContentView(R.layout.popup_add_word);
+        mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        EditText term = mDialog.findViewById(R.id.term);
+        EditText definition = mDialog.findViewById(R.id.definition);
+        Button addCardButton = mDialog.findViewById(R.id.add_card_button);
+        addCardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (term.getText().toString() != "" && definition.getText().toString() != ""){
+                    Word newWord = new Word(term.getText().toString(),
+                            definition.getText().toString(),getIntent().getExtras().getLong("SetId") );
+                    addWord(newWord);
+                }
+            }
+        });
+
+        mDialog.show();
+    }
+
+    private void addWord(Word newWord){
+        Call<Word> call = service.addWord("Bearer " + tokenManager.getToken().getAccessToken(),
+                tokenManager.getToken().getRefreshToken(),newWord);
+
+        call.enqueue(new Callback<Word>() {
+            @Override
+            public void onResponse(Call<Word> call, Response<Word> response) {
+                if (response.isSuccessful()){
+                    words.add(response.body());
+                    myAdapter.update(words);
+                }
+                else{
+                    //Toast.makeText(getContext(),"error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Word> call, Throwable t) {
                 //Toast.makeText(getContext(),"error", Toast.LENGTH_SHORT).show();
             }
         });

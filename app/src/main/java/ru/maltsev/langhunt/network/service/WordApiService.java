@@ -22,7 +22,11 @@ public interface WordApiService {
     Call<List<SetWords>> getSets(@Header("Authorization") String authToken, @Query(value = "refresh_token") String refreshToken);
 
     @GET("getWords")
-    Call<Set<Word>> getWords(@Header("Authorization") String authToken,
+    Call<List<Word>> getWords(@Header("Authorization") String authToken,
                              @Query(value = "refresh_token") String refreshToken,
                              @Query(value = "set_id") Long setId);
+    @POST("addWord")
+    Call<Word> addWord(@Header("Authorization") String authToken,
+                       @Query(value = "refresh_token") String refreshToken,
+                       @Body Word word);
 }
