@@ -22,8 +22,8 @@ import ru.maltsev.langhunt.network.client.RetrofitBuilder;
 import ru.maltsev.langhunt.network.model.AccessToken;
 import ru.maltsev.langhunt.network.model.SignupRequest;
 import ru.maltsev.langhunt.network.model.User;
-import ru.maltsev.langhunt.network.service.ApiService;
-import ru.maltsev.langhunt.ui.MainActivity;
+import ru.maltsev.langhunt.network.service.ApiAuthService;
+import ru.maltsev.langhunt.ui.activity.MainActivity;
 
 public class SignupTabFragment extends Fragment {
 
@@ -32,7 +32,7 @@ public class SignupTabFragment extends Fragment {
     EditText password;
     Button signup_btn;
 
-    ApiService service;
+    ApiAuthService service;
     TokenManager tokenManager;
 
     @Override
@@ -44,7 +44,7 @@ public class SignupTabFragment extends Fragment {
         password = root.findViewById(R.id.password);
         signup_btn = root.findViewById(R.id.signup_btn);
 
-        service = RetrofitBuilder.createService(ApiService.class);
+        service = RetrofitBuilder.createService(ApiAuthService.class);
         tokenManager = TokenManager.getInstance(this.getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
 
 

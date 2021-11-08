@@ -1,4 +1,4 @@
-package ru.maltsev.langhunt.ui;
+package ru.maltsev.langhunt.ui.activity;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import com.google.android.material.tabs.TabLayout;
 
 import ru.maltsev.langhunt.R;
+import ru.maltsev.langhunt.ui.LoginAdapter;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -35,10 +36,6 @@ public class LoginActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         adapter = new LoginAdapter(fm, getLifecycle());
         viewPager.setAdapter(adapter);
-
-        //new TabLayoutMediator(tabLayout, viewPager,
-        //        (tab, position) -> tab.setText("Tab " + position)).attach();
-
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

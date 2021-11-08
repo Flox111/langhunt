@@ -1,5 +1,7 @@
 package ru.maltsev.langhunt.ui.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,31 +15,65 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ru.maltsev.langhunt.R;
-import ru.maltsev.langhunt.ui.RecyclerViewAdapter;
+import ru.maltsev.langhunt.network.TokenManager;
+import ru.maltsev.langhunt.network.client.RetrofitBuilder;
+import ru.maltsev.langhunt.network.service.WordApiService;
+import ru.maltsev.langhunt.ui.RecyclerViewAdapterSets;
 import ru.maltsev.langhunt.ui.SetWords;
 
 public class DictionaryFragment extends Fragment {
 
+    WordApiService service;
+    TokenManager tokenManager;
     List<SetWords> lstSet;
+    RecyclerViewAdapterSets myAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_dictionary,container,false);
 
+        tokenManager = TokenManager.getInstance(this.getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
+        service = RetrofitBuilder.createServiceWithAuth(WordApiService.class, tokenManager);
+
         lstSet = new ArrayList<>();
-        lstSet.add(new SetWords("Title1"));
-        lstSet.add(new SetWords("Title2"));
-        lstSet.add(new SetWords("Title3"));
-        lstSet.add(new SetWords("Title4"));
-        lstSet.add(new SetWords("Title5"));
-        lstSet.add(new SetWords("Title6"));
-        lstSet.add(new SetWords("Title7"));
-        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recyclerview_id);
-        RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(getContext(), lstSet);
+
+        RecyclerView recyclerView = root.findViewById(R.id.recyclerview_id);
+        myAdapter = new RecyclerViewAdapterSets(getContext(), lstSet);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         recyclerView.setAdapter(myAdapter);
+
+        getSets();
         return root;
     }
+
+    private void getSets(){
+        Call<List<SetWords>> call = service.getSets("Bearer " + tokenManager.getToken().getAccessToken(),
+                tokenManager.getToken().getRefreshToken());
+
+        call.enqueue(new Callback<List<SetWords>>() {
+            @Override
+            public void onResponse(Call<List<SetWords>> call, Response<List<SetWords>> response) {
+                if (response.isSuccessful()){
+                    for (SetWords set: response.body()){
+                        lstSet.add(new SetWords(set.getSetId(),set.getTitle(),set.getUserId()));
+                    }
+                    myAdapter.update(lstSet);
+                }
+                else{
+                    //Toast.makeText(getContext(),"error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<SetWords>> call, Throwable t) {
+                //Toast.makeText(getContext(),"error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }

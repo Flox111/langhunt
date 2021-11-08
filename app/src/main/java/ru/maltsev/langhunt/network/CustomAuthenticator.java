@@ -11,7 +11,7 @@ import okhttp3.Route;
 import retrofit2.Call;
 import ru.maltsev.langhunt.network.client.RetrofitBuilder;
 import ru.maltsev.langhunt.network.model.AccessToken;
-import ru.maltsev.langhunt.network.service.ApiService;
+import ru.maltsev.langhunt.network.service.ApiAuthService;
 
 public class CustomAuthenticator implements Authenticator {
 
@@ -40,7 +40,7 @@ public class CustomAuthenticator implements Authenticator {
 
         AccessToken token = tokenManager.getToken();
 
-        ApiService service = RetrofitBuilder.createService(ApiService.class);
+        ApiAuthService service = RetrofitBuilder.createService(ApiAuthService.class);
         Call<AccessToken> call = service.refresh(token);
         retrofit2.Response<AccessToken> res = call.execute();
 

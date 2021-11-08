@@ -22,8 +22,8 @@ import ru.maltsev.langhunt.network.client.RetrofitBuilder;
 import ru.maltsev.langhunt.network.model.AccessToken;
 import ru.maltsev.langhunt.network.model.LoginRequest;
 import ru.maltsev.langhunt.network.model.User;
-import ru.maltsev.langhunt.network.service.ApiService;
-import ru.maltsev.langhunt.ui.MainActivity;
+import ru.maltsev.langhunt.network.service.ApiAuthService;
+import ru.maltsev.langhunt.ui.activity.MainActivity;
 
 public class LoginTabFragment extends Fragment {
 
@@ -31,14 +31,14 @@ public class LoginTabFragment extends Fragment {
     EditText password;
     Button login_btn;
 
-    ApiService service;
+    ApiAuthService service;
     TokenManager tokenManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.login_tab_fragment,container,false);
 
-        service = RetrofitBuilder.createService(ApiService.class);
+        service = RetrofitBuilder.createService(ApiAuthService.class);
         tokenManager = TokenManager.getInstance(this.getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
 
         email = root.findViewById(R.id.email);

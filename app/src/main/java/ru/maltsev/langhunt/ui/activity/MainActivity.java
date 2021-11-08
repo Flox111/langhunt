@@ -1,4 +1,4 @@
-package ru.maltsev.langhunt.ui;
+package ru.maltsev.langhunt.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

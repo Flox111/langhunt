@@ -15,7 +15,7 @@ import ru.maltsev.langhunt.network.model.LoginRequest;
 import ru.maltsev.langhunt.network.model.SignupRequest;
 import ru.maltsev.langhunt.network.model.User;
 
-public interface ApiService {
+public interface ApiAuthService {
 
     @POST("auth/signin")
     Call<User> login(@Body LoginRequest loginRequest);

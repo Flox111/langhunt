@@ -14,13 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ru.maltsev.langhunt.R;
+import ru.maltsev.langhunt.ui.activity.SetActivity;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class RecyclerViewAdapterSets extends RecyclerView.Adapter<RecyclerViewAdapterSets.MyViewHolder> {
 
     private Context mContext;
     private List<SetWords> mData;
 
-    public RecyclerViewAdapter(Context mContext, List<SetWords> mData) {
+    public RecyclerViewAdapterSets(Context mContext, List<SetWords> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -45,6 +46,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Intent intent = new Intent(mContext, SetActivity.class);
 
                 intent.putExtra("Title", mData.get(holder.getAdapterPosition()).getTitle());
+                intent.putExtra("SetId", mData.get(holder.getAdapterPosition()).getSetId());
 
                 mContext.startActivity(intent);
             }
@@ -56,6 +58,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mData.size();
     }
 
+    public void update(List<SetWords> sets){
+        mData = sets;
+        notifyDataSetChanged();
+    }
     public static class MyViewHolder extends  RecyclerView.ViewHolder{
 
         TextView textView;
