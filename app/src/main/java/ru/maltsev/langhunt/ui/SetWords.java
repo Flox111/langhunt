@@ -14,6 +14,10 @@ public class SetWords {
         this.userId = userId;
     }
 
+    public SetWords(String title) {
+        this.title = title;
+    }
+
     public Long getSetId() {
         return setId;
     }

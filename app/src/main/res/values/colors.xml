@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="login_background">#28c38a</color>
     <color name="end_color">#91d2f6</color>
-    <color name="start_color">#dbf1ff</color>
+    <color name="start_color">#dbf1ff</color>c32861
+    <color name="negative">#c32861</color>
 </resources>

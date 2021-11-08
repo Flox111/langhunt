@@ -62,6 +62,11 @@ public class RecyclerViewAdapterSets extends RecyclerView.Adapter<RecyclerViewAd
         mData = sets;
         notifyDataSetChanged();
     }
+
+    public SetWords getSet(int position){
+        return mData.get(position);
+    }
+
     public static class MyViewHolder extends  RecyclerView.ViewHolder{
 
         TextView textView;

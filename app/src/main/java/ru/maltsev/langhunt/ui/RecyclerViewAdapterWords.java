@@ -1,7 +1,6 @@
 package ru.maltsev.langhunt.ui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ru.maltsev.langhunt.R;
-import ru.maltsev.langhunt.ui.activity.SetActivity;
-import ru.maltsev.langhunt.ui.activity.WordActivity;
 
 public class RecyclerViewAdapterWords extends RecyclerView.Adapter<RecyclerViewAdapterWords.MyViewHolder>{
 
     private Context mContext;
-    private List<Word> mData;
+    private List<Card> mData;
 
-    public RecyclerViewAdapterWords(Context mContext, List<Word> mData) {
+    public RecyclerViewAdapterWords(Context mContext, List<Card> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -40,15 +37,6 @@ public class RecyclerViewAdapterWords extends RecyclerView.Adapter<RecyclerViewA
     public void onBindViewHolder(@NonNull RecyclerViewAdapterWords.MyViewHolder holder, int position) {
         holder.nativeTranslated.setText(mData.get(position).getNativeTranslated());
         holder.translated.setText(mData.get(position).getTranslated());
-
-        /*holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, WordActivity.class);
-
-                mContext.startActivity(intent);
-            }
-        });*/
     }
 
     @Override
@@ -56,9 +44,13 @@ public class RecyclerViewAdapterWords extends RecyclerView.Adapter<RecyclerViewA
         return mData.size();
     }
 
-    public void update(List<Word> words){
-        mData = words;
+    public void update(List<Card> cards){
+        mData = cards;
         notifyDataSetChanged();
+    }
+
+    public Card getCard(int position){
+        return mData.get(position);
     }
     public static class MyViewHolder extends  RecyclerView.ViewHolder{
 

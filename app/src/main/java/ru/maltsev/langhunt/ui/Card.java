@@ -1,7 +1,7 @@
 package ru.maltsev.langhunt.ui;
 
-public class Word {
-    private Long wordId;
+public class Card {
+    private Long cardId;
 
     private String nativeTranslated;
 
@@ -9,24 +9,24 @@ public class Word {
 
     private Long setId;
 
-    public Word(Long wordId, String nativeTranslated, String translated) {
-        this.wordId = wordId;
+    public Card(Long cardId, String nativeTranslated, String translated) {
+        this.cardId = cardId;
         this.nativeTranslated = nativeTranslated;
         this.translated = translated;
     }
 
-    public Word(String nativeTranslated, String translated, Long setId) {
+    public Card(String nativeTranslated, String translated, Long setId) {
         this.nativeTranslated = nativeTranslated;
         this.translated = translated;
         this.setId = setId;
     }
 
-    public Long getWordId() {
-        return wordId;
+    public Long getCardId() {
+        return cardId;
     }
 
-    public void setWordId(Long wordId) {
-        this.wordId = wordId;
+    public void setCardId(Long cardId) {
+        this.cardId = cardId;
     }
 
     public String getNativeTranslated() {
