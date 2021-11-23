@@ -93,6 +93,7 @@ public class RecyclerViewAdapterWords extends RecyclerView.Adapter<RecyclerViewA
         TextToSpeech textToSpeech;
         ImageView imageView;
 
+
         public MyViewHolder(View itemView) {
             super(itemView);
             nativeTranslated = itemView.findViewById(R.id.native_translated);
