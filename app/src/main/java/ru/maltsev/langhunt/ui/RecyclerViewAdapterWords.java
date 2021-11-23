@@ -2,16 +2,21 @@ package ru.maltsev.langhunt.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.media.AudioManager;
+import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 import java.util.Locale;
@@ -55,9 +60,15 @@ public class RecyclerViewAdapterWords extends RecyclerView.Adapter<RecyclerViewA
             @Override
             public void onClick(View v) {
                 String s = mData.get(position).getNativeTranslated();
-                int speach = holder.textToSpeech.speak(s, TextToSpeech.QUEUE_FLUSH, null);
+                Bundle bundle = new Bundle();
+                bundle.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, AudioManager.STREAM_MUSIC);
+                holder.textToSpeech.speak(s, TextToSpeech.QUEUE_FLUSH, bundle, null);
             }
         });
+
+        if (mData.get(position).getImageUrl() != null) {
+            Glide.with(mContext).load(mData.get(position).getImageUrl()).into(holder.imageView);
+        }
     }
 
     @Override
@@ -75,12 +86,12 @@ public class RecyclerViewAdapterWords extends RecyclerView.Adapter<RecyclerViewA
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-
         TextView nativeTranslated;
         TextView translated;
         CardView cardView;
         Button speaker_btn;
         TextToSpeech textToSpeech;
+        ImageView imageView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -88,6 +99,7 @@ public class RecyclerViewAdapterWords extends RecyclerView.Adapter<RecyclerViewA
             translated = itemView.findViewById(R.id.translated);
             cardView = itemView.findViewById(R.id.cardview_word_id);
             speaker_btn = itemView.findViewById(R.id.speaker);
+            imageView = itemView.findViewById(R.id.image_for_word);
         }
     }
 }

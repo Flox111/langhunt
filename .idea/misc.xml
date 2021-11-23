@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Artem/AndroidStudioProjects/langhunt/app/src/main/res/layout/activity_create_word.xml" value="0.264" />
+        <entry key="..\:/Users/Artem/AndroidStudioProjects/langhunt/app/src/main/res/layout/activity_login.xml" value="0.24205128205128204" />
+        <entry key="..\:/Users/Artem/AndroidStudioProjects/langhunt/app/src/main/res/layout/cardview_item_word.xml" value="0.264" />
+        <entry key="..\:/Users/Artem/AndroidStudioProjects/langhunt/app/src/main/res/layout/fragment_home.xml" value="0.4" />
+        <entry key="..\:/Users/Artem/AndroidStudioProjects/langhunt/app/src/main/res/layout/image_item_layout.xml" value="0.24583333333333332" />
+        <entry key="..\:/Users/Artem/AndroidStudioProjects/langhunt/app/src/main/res/layout/popup_add_word.xml" value="0.2" />
         <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/drawable/background.xml" value="0.3640625" />
         <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/drawable/button_add.xml" value="0.3640625" />
         <entry key="..\:/Users/artem/AndroidStudioProjects/langhunt/app/src/main/res/drawable/button_bg.xml" value="0.3572916666666667" />

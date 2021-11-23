@@ -84,7 +84,6 @@ public class LoginTabFragment extends Fragment {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()){
-                    Toast.makeText(getContext(),response.body().getAccessToken(), Toast.LENGTH_SHORT).show();
                     tokenManager.saveToken(new AccessToken(response.body().getAccessToken(),response.body().getRefreshToken()));
                     startActivity(new Intent(getActivity(), MainActivity.class));
                     getActivity().finish();

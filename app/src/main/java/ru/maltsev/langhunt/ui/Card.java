@@ -9,16 +9,13 @@ public class Card {
 
     private Long setId;
 
-    public Card(Long cardId, String nativeTranslated, String translated) {
-        this.cardId = cardId;
-        this.nativeTranslated = nativeTranslated;
-        this.translated = translated;
-    }
+    private String imageUrl;
 
-    public Card(String nativeTranslated, String translated, Long setId) {
+    public Card(String nativeTranslated, String translated, Long setId, String imageUrl) {
         this.nativeTranslated = nativeTranslated;
         this.translated = translated;
         this.setId = setId;
+        this.imageUrl = imageUrl;
     }
 
     public Long getCardId() {
@@ -51,5 +48,13 @@ public class Card {
 
     public void setSetId(Long setId) {
         this.setId = setId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

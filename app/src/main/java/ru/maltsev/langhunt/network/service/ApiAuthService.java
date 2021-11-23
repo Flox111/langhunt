@@ -12,6 +12,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import ru.maltsev.langhunt.network.model.AccessToken;
 import ru.maltsev.langhunt.network.model.LoginRequest;
+import ru.maltsev.langhunt.network.model.MessageResponse;
 import ru.maltsev.langhunt.network.model.SignupRequest;
 import ru.maltsev.langhunt.network.model.User;
 
@@ -21,7 +22,7 @@ public interface ApiAuthService {
     Call<User> login(@Body LoginRequest loginRequest);
 
     @POST("auth/signup")
-    Call<User> signup(@Body SignupRequest signupRequest);
+    Call<MessageResponse> signup(@Body SignupRequest signupRequest);
 
     @POST("auth/refreshtoken")
     Call<AccessToken> refresh(@Body AccessToken token);

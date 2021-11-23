@@ -1,13 +1,13 @@
 package ru.maltsev.langhunt.ui.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +39,6 @@ public class SetActivity extends AppCompatActivity {
     private WordApiService service;
     private TokenManager tokenManager;
     private RecyclerViewAdapterWords myAdapter;
-    Dialog mDialog;
 
     private TextView textView;
     private FloatingActionButton floatingActionButton;
@@ -60,8 +59,6 @@ public class SetActivity extends AppCompatActivity {
         textView = findViewById(R.id.set_title);
 
         floatingActionButton = findViewById(R.id.button_add_card);
-        mDialog = new Dialog(SetActivity.this);
-
 
         textView.setText(getIntent().getExtras().getString("Title"));
 
@@ -118,46 +115,10 @@ public class SetActivity extends AppCompatActivity {
     }
 
     private void showPopup() {
-        mDialog.setContentView(R.layout.popup_add_word);
-        mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        EditText term = mDialog.findViewById(R.id.term);
-        EditText definition = mDialog.findViewById(R.id.definition);
-        Button addCardButton = mDialog.findViewById(R.id.add_card_button);
-        addCardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (term.getText().toString() != "" && definition.getText().toString() != "") {
-                    Card newCard = new Card(term.getText().toString(),
-                            definition.getText().toString(), getIntent().getExtras().getLong("SetId"));
-                    addWord(newCard);
-                }
-            }
-        });
-
-        mDialog.show();
-    }
-
-    private void addWord(Card newCard) {
-        Call<Card> call = service.addWord("Bearer " + tokenManager.getToken().getAccessToken(),
-                tokenManager.getToken().getRefreshToken(), newCard);
-
-        call.enqueue(new Callback<Card>() {
-            @Override
-            public void onResponse(Call<Card> call, Response<Card> response) {
-                if (response.isSuccessful()) {
-                    cards.add(response.body());
-                    myAdapter.update(cards);
-                    mDialog.dismiss();
-                } else {
-                    Toast.makeText(SetActivity.this, "Error when edding a card", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Card> call, Throwable t) {
-                //Toast.makeText(getContext(),"error", Toast.LENGTH_SHORT).show();
-            }
-        });
+        Intent intent = new Intent(this, CreateWord.class);
+        intent.putExtra("SetId", getIntent().getExtras().getLong("SetId"));
+        startActivity(intent);
+        this.finish();
     }
 
     private void showPopupDelete(Dialog deleteDialog, int position) {

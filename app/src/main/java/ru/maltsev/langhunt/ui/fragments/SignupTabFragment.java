@@ -20,6 +20,7 @@ import ru.maltsev.langhunt.R;
 import ru.maltsev.langhunt.network.TokenManager;
 import ru.maltsev.langhunt.network.client.RetrofitBuilder;
 import ru.maltsev.langhunt.network.model.AccessToken;
+import ru.maltsev.langhunt.network.model.MessageResponse;
 import ru.maltsev.langhunt.network.model.SignupRequest;
 import ru.maltsev.langhunt.network.model.User;
 import ru.maltsev.langhunt.network.service.ApiAuthService;
@@ -60,7 +61,7 @@ public class SignupTabFragment extends Fragment {
 
     private void signup(){
         SignupRequest signupRequest;
-        Call<User> call;
+        Call<MessageResponse> call;
         if (username.getText().toString() != "" && email.getText().toString() != "" && password.getText().toString() != ""){
             signupRequest = new SignupRequest(username.getText().toString(),
                     email.getText().toString(), password.getText().toString());
@@ -71,14 +72,11 @@ public class SignupTabFragment extends Fragment {
             return;
         }
 
-        call.enqueue(new Callback<User>() {
+        call.enqueue(new Callback<MessageResponse>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<MessageResponse> call, Response<MessageResponse> response) {
                 if (response.isSuccessful()){
-                    Toast.makeText(getContext(),response.body().getAccessToken(), Toast.LENGTH_SHORT).show();
-                    tokenManager.saveToken(new AccessToken(response.body().getAccessToken(),response.body().getRefreshToken()));
-                    startActivity(new Intent(getActivity(), MainActivity.class));
-                    getActivity().finish();
+                    Toast.makeText(getContext(),response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 else{
                     Toast.makeText(getContext(),response.code(), Toast.LENGTH_SHORT).show();
@@ -86,7 +84,7 @@ public class SignupTabFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<MessageResponse> call, Throwable t) {
                 Toast.makeText(getContext(),t.toString(), Toast.LENGTH_SHORT).show();
                 System.out.println(t.toString());
             }
